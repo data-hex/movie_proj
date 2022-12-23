@@ -3,8 +3,8 @@ from .models import Movie
 
 # Register your models here.
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'rating', 'year', 'budget', 'rating_status']
-    list_editable = ['year', 'rating']
+    list_display = ['name', 'rating', 'year', 'budget', 'rating_status', 'currency']
+    list_editable = ['year', 'rating', 'currency']
     ordering = ['rating']
     list_per_page = 6
 
