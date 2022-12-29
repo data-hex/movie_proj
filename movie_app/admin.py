@@ -28,10 +28,10 @@ class RatingFilter(admin.SimpleListFilter):
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'rating', 'year', 'budget', 'rating_status', 'currency']
+    list_display = ['name', 'rating', 'year', 'budget', 'rating_status', 'currency', 'director']
     #exclude = ['slug']
     prepopulated_fields = {'slug': ('name', )}
-    list_editable = ['year', 'rating', 'currency']
+    list_editable = ['year', 'rating', 'currency', 'director']
     ordering = ['rating']
     list_per_page = 6
     actions = ['set_dollars', 'set_euro']
