@@ -51,6 +51,7 @@ class Movie(models.Model):
     currency = models.CharField(max_length=3, choices=СURRENCY_CHOICES, default=RUB)
     slug = models.SlugField(default="", null=False)
     director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True)
+    actors = models.ManyToManyField(Actor)
 
     '''def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
