@@ -16,6 +16,10 @@ class Actor(models.Model):
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
 
+
+    def get_url(self):
+        return reverse('actor-detail', args=[self.id])
+
     def __str__(self):
         if self.gender == self.MALE:
             return f'Актер {self.first_name} {self.last_name}'
