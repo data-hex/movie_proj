@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import Movie, Director, Actor
+from .models import Movie, Director, Actor, DressingRoom
 from django.db.models import QuerySet
 
 
 # Register your models here.
+@admin.register(DressingRoom)
+class DressingRoomAdmin(admin.ModelAdmin):
+    list_display = ['floor', 'number', 'actor']
+
+
 class RatingFilter(admin.SimpleListFilter):
     title = 'Фильтр по рейтингу'
     parameter_name = 'rating'
+
     def lookups(self, request, model_admin):
         return [
             ('<40', 'Низкий'),
@@ -16,21 +22,21 @@ class RatingFilter(admin.SimpleListFilter):
         ]
 
     def queryset(self, request, queryset: QuerySet):
-        if self.value()=='<40':
+        if self.value() == '<40':
             return queryset.filter(rating__lt=40)
-        if self.value()=='от 40 до 59':
+        if self.value() == 'от 40 до 59':
             return queryset.filter(rating__gte=40).filter(rating__lt=60)
-        if self.value()=='от 60 до 79':
+        if self.value() == 'от 60 до 79':
             return queryset.filter(rating__gte=60).filter(rating__lt=80)
-        if self.value()=='>=80':
+        if self.value() == '>=80':
             return queryset.filter(rating__gte=80)
         return queryset
 
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['name', 'rating', 'year', 'budget', 'rating_status', 'currency', 'director']
-    #exclude = ['slug']
-    prepopulated_fields = {'slug': ('name', )}
+    # exclude = ['slug']
+    prepopulated_fields = {'slug': ('name',)}
     list_editable = ['year', 'rating', 'currency', 'director']
     ordering = ['rating']
     list_per_page = 6
@@ -62,3 +68,4 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Director)
 admin.site.register(Actor)
+# admin.site.register(DressingRoom)
